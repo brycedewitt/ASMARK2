@@ -20,13 +20,6 @@ class IndexView(generic.ListView):
         return Drink.objects.all()
 
 def pour(request, drink_id):
-
-    drink = get_object_or_404(Drink, pk=drink_id)
-
-    GPIO.setmode(GPIO.BCM)
-
-
-
     def pour(pin, waitTime):
         GPIO.output(pin, GPIO.LOW)
         print("GPIO " + str(pin) + " has beem set to LOW")
@@ -56,7 +49,7 @@ def pour(request, drink_id):
         for thread in pumpThreads:
             thread.join()
 
-
-    print(Drink.objects.get(pk=drink_id).pour_set.all())
+    drink = get_object_or_404(Drink, pk=drink_id)
+    GPIO.setmode(GPIO.BCM)
     makeDrink(Drink.objects.get(pk=drink_id))
     return HttpResponse("Hello, world. You're at the polls index.")
