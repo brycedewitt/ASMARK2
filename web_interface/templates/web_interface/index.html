@@ -1,0 +1,30 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'web_interface/style.css' %}">
+
+{% if available_drinks %}
+<h2>Choose a Drink:</h2>
+    {% for drink in available_drinks %}
+
+
+    <div class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-back">
+          {% for pour in drink.pour_set.all %}
+          <p>{{ pour.beverage }}</p>
+          {% endfor %}
+          <button onclick="location.href='{% url 'web_interface:pour' drink.id %}'" type="button">Order This</button>
+        </div>
+        <div class="flip-card-front">
+          <h1>{{ drink.name }}</h1>
+          <p>{{ drink.description }}</p>
+          <p>$ {{ drink.cost }}</p>
+        </div>
+      </div>
+    </div>
+
+
+    {% endfor %}
+{% else %}
+    <p>No drinks are available.</p>
+{% endif %}
