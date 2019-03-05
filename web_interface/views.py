@@ -25,7 +25,7 @@ def pour(request, drink_id):
         try:
             drinkObject = Drinks.objects.get(pk=drink_id)
         except Drink.DoesNotExist:
-            return render(request, 'web_interface/invalid_drink.html', {'drink': drink_id})
+            return render(request, 'web_interface/detail.html', {'drink': False})
 
         # We have a valid drink_id now, let's check if we can make it
         # Leaving this super explicit/long for debugging
@@ -73,3 +73,10 @@ def pour(request, drink_id):
 
         # Here's where we're going to actually call the functions to start the process
     check_drink(request, drink_id)
+
+def detail(request, drink_id):
+    try:
+        drinkObject = Drinks.objects.get(pk=drink_id)
+    except Drink.DoesNotExist:
+        return render(request, 'web_interface/detail.html', {'drink': False})
+    return render(request, 'web_interface/detail.html', {'drink': drink_id})

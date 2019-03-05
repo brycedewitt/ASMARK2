@@ -5,21 +5,6 @@ from django.core.validators import MaxValueValidator
 
 # Create your models here.
 
-class Drink(models.Model):
-    name = models.CharField(max_length=200)
-    description = models.CharField(max_length=400)
-    total_pours = models.IntegerField(default=0)
-    cost = models.DecimalField(decimal_places=2, max_digits=10)
-    created_date = models.DateTimeField(default=now)
-    created_by = models.CharField(max_length=200)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        ordering = ["total_pours"]
-        verbose_name_plural = 'Drinks'
-
 class User(models.Model):
     name = models.CharField(max_length=200)
     venmo = models.CharField(max_length=200)
@@ -35,6 +20,20 @@ class User(models.Model):
     class Meta:
         ordering = ["total_drinks"]
         verbose_name_plural = 'Users'
+
+class Drink(models.Model):
+    name = models.CharField(max_length=200)
+    description = models.CharField(max_length=400)
+    total_pours = models.IntegerField(default=0)
+    cost = models.DecimalField(decimal_places=2, max_digits=10)
+    created_date = models.DateTimeField(default=now)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ["total_pours"]
+        verbose_name_plural = 'Drinks'
 
 class Beverage(models.Model):
     name = models.CharField(max_length=200)
