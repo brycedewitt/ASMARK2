@@ -41,7 +41,7 @@ class Beverage(models.Model):
     capacity = models.IntegerField(default=1000)
     remaining = models.IntegerField(default=500)
     cost_per_unit = models.DecimalField(decimal_places=4, max_digits=10, default=0.5900)
-    gpio_pin = models.IntegerField(null=False)
+    gpio_pin = models.IntegerField(null=False, unique=True)
     flowrate = models.DecimalField(decimal_places=4, max_digits=10, default=0.5900)
 
     def __str__(self):
@@ -62,6 +62,10 @@ class Pour(models.Model):
         z = str(self.volume)
         out = x + ' -- ' + z + 'ml of ' + y
         return out
+
+    class Meta:
+        ordering = ["-volume"]
+        verbose_name_plural = 'Pours'
 
 
 class Order(models.Model):
