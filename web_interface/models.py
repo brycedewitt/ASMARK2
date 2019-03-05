@@ -8,11 +8,11 @@ from django.core.validators import MaxValueValidator
 class User(models.Model):
     name = models.CharField(max_length=200)
     venmo = models.CharField(max_length=200)
-    swipecode = models.CharField(max_length=400, null=True)
+    swipecode = models.CharField(max_length=400, default='none')
     pin = models.PositiveIntegerField(unique=True, null=False, validators=[MaxValueValidator(999999)])
     register_date = models.DateTimeField(default=now)
     total_drinks = models.IntegerField(default=0)
-    credit = models.DecimalField(decimal_places=2, max_digits=10)
+    credit = models.DecimalField(decimal_places=2, max_digits=10, default=0.00)
 
     def __str__(self):
         return self.name
@@ -25,8 +25,9 @@ class Drink(models.Model):
     name = models.CharField(max_length=200)
     description = models.CharField(max_length=400)
     total_pours = models.IntegerField(default=0)
-    cost = models.DecimalField(decimal_places=2, max_digits=10)
+    cost = models.DecimalField(decimal_places=2, max_digits=10, default=1.99)
     created_date = models.DateTimeField(default=now)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.name
@@ -35,13 +36,27 @@ class Drink(models.Model):
         ordering = ["total_pours"]
         verbose_name_plural = 'Drinks'
 
+class DrinkType(models.Model):
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ["name"]
+        verbose_name_plural = 'Drink Types'
+
 class Beverage(models.Model):
     name = models.CharField(max_length=200)
     capacity = models.IntegerField(default=1000)
     remaining = models.IntegerField(default=500)
+    drink_type = models.ForeignKey(DrinkType, on_delete=models.CASCADE, null=True)
     cost_per_unit = models.DecimalField(decimal_places=4, max_digits=10, default=0.5900)
     gpio_pin = models.IntegerField(null=False, unique=True)
     flowrate = models.DecimalField(decimal_places=4, max_digits=10, default=0.5900)
+
+    def shot_cost(self):
+        return float('%.2f'%(self.cost_per_unit * 35))
 
     def __str__(self):
         return self.name

@@ -7,44 +7,36 @@
 
 <body>
 
-{% if available_drinks %}
+{% if available_beverages %}
 <ul class="nav nav-tabs" id="navitemoverride">
   <li class="nav-item">
-    <a class="nav-link active" href='{% url 'web_interface:index' %}'>Drinks</a>
+    <a class="nav-link" href='{% url 'web_interface:index' %}'>Drinks</a>
   </li>
   <li class="nav-item">
     <a class="nav-link disabled" href="#"><s>Users</s></a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href='{% url 'web_interface:shots' %}'>Shots</a>
+    <a class="nav-link " href='{% url 'web_interface:shots' %}'>Shots</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href='{% url 'web_interface:mix' %}'>Mix</a>
+    <a class="nav-link active" href='{% url 'web_interface:mix' %}'>Mix</a>
   </li>
 </ul>
 
 
-<h2>Choose a Drink:</h2>
+<h2>Choose a Mixer:</h2>
 <div class="card-columns">
-    {% for drink in available_drinks %}
+    {% for bv in available_beverages %}
 
     <div class="card">
         <img class="card-img-top" src="https://cdn4.iconfinder.com/data/icons/logos-3/600/React.js_logo-512.png">
         <div class="card-body">
-            <h5 class="cart-title">{{ drink.name }} -- ${{ drink.cost }}</h5>
-            <p class="card-text"><small class="text-muted">Created by {{ drink.user.name }}</small></p>
-            <p class="card-text">{{ drink.description }}</p>
-            <h6 class="card-title">Ingredients</h6>
-            <ul>
-                {% for pour in drink.pour_set.all %}
-                <li><p>{{ pour.beverage }} ({{ pour.volume }} ml)</p></li>
-                {% endfor %}
-            </ul>
-            <p class="card-text"><small class="text-muted">Ordered {{ drink.total_pours }} times</small></p>
-            <button class="btn btn-primary btn-lg btn-block" onclick="location.href='{% url 'web_interface:pour' drink.id %}'" type="button">Order This</button>
+            <h5 class="cart-title">{{ bv.name }}</h5>
+            <p>${{ bv.shot_cost }} for 100ml</p>
+            <button class="btn btn-primary btn-lg btn-block" type="button">Order This</button>
             <br>
             <div class="progress">
-                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+                <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
             </div>
         </div>
     </div>
