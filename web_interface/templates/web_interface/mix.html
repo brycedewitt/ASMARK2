@@ -7,7 +7,7 @@
 
 <body>
 
-{% if available_beverages %}
+
 <ul class="nav nav-tabs" id="navitemoverride">
   <li class="nav-item">
     <a class="nav-link" href='{% url 'web_interface:index' %}'>Drinks</a>
@@ -23,7 +23,7 @@
   </li>
 </ul>
 
-
+{% if available_beverages %}
 <h2>Choose a Mixer:</h2>
 <div class="card-columns">
     {% for bv in available_beverages %}
@@ -45,7 +45,7 @@
 </div>
 
 {% else %}
-    <p>No drinks are available.</p>
+    <h1>No drinks are available.</h1>
 {% endif %}
 
 

@@ -19,7 +19,8 @@ class IndexView(generic.ListView):
 
     def get_queryset(self):
         """Return the last five published questions."""
-        return Drink.objects.order_by('-total_pours')
+        return Drink.availableList()
+        #return Drink.objects.order_by('-total_pours')
 
 class ShotsView(generic.ListView):
     template_name = 'web_interface/shots.html'
@@ -27,7 +28,7 @@ class ShotsView(generic.ListView):
 
     def get_queryset(self):
         """Return only drinks that have enough remaining for a shot"""
-        x = Beverage.objects.filter(remaining__gt=35)
+        x = Beverage.objects.filter(remaining__gt=35).filter(loaded=True)
         return x.filter(drink_type__name__exact="Liquor")
 
 class MixView(generic.ListView):
@@ -36,7 +37,7 @@ class MixView(generic.ListView):
 
     def get_queryset(self):
         """Return only drinks that have enough remaining for a shot"""
-        x = Beverage.objects.filter(remaining__gt=35)
+        x = Beverage.objects.filter(remaining__gt=35).filter(loaded=True)
         return x.filter(drink_type__name__exact="Mix")
 
 def pour(request, drink_id):
@@ -86,10 +87,22 @@ def pour(request, drink_id):
         # We'll start by making sure the GPIO is setup
         GPIO.setmode(GPIO.BCM)
 
+        # Record the drink being poured
+        o = Order(drink=drink, user=None)
+        o.save()
+
+        drink.total_pours = drink.total_pours + 1
+        drink.save()
+
         # Parse the drink ingredients and spawn threads for pumps
         maxTime = 0
         pumpThreads = []
         for p in drink.pour_set.all():
+            # Log beverage being dispensed
+            p.beverage.remaining = p.beverage.remaining - p.volume
+            p.beverage.save()
+
+            # run the pumps as threads
             GPIO.setup(p.beverage.gpio_pin, GPIO.OUT, initial=GPIO.HIGH)
             waitTime = p.volume * p.beverage.flowrate
             if (waitTime > maxTime):

@@ -29,6 +29,29 @@ class Drink(models.Model):
     created_date = models.DateTimeField(default=now)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
+    def pourTime(self):
+        maxTime = 0
+        for p in self.pour_set.all():
+            waitTime = p.volume * p.beverage.flowrate
+            if (waitTime > maxTime):
+                maxTime = waitTime
+        return maxTime
+
+    def availableList():
+        ids = []
+        for d in Drink.objects.all():
+            if Drink.allLoaded(d):
+                ids.append(d.id)
+        return Drink.objects.all().filter(id__in=ids).order_by('-total_pours')
+
+    def allLoaded(self):
+        x = self.pour_set.all().count()
+        y = 0
+        for p in self.pour_set.all():
+            if p.beverage.loaded:
+                y += 1
+        return (x==y)
+
     def __str__(self):
         return self.name
 
@@ -48,6 +71,7 @@ class DrinkType(models.Model):
 
 class Beverage(models.Model):
     name = models.CharField(max_length=200)
+    loaded = models.BooleanField(default=False)
     capacity = models.IntegerField(default=1000)
     remaining = models.IntegerField(default=500)
     drink_type = models.ForeignKey(DrinkType, on_delete=models.CASCADE, null=True)
@@ -95,5 +119,5 @@ class Order(models.Model):
         return out
 
     class Meta:
-        ordering = ["timestamp"]
+        ordering = ["-timestamp"]
         verbose_name_plural = 'Orders'
