@@ -77,10 +77,10 @@ def pour(request, drink_id):
         return HttpResponseRedirect('test')
 
     def pour(pin, waitTime):
-        #GPIO.output(pin, GPIO.LOW)
+        GPIO.output(pin, GPIO.LOW)
         print("GPIO " + str(pin) + " has been set to LOW")
         time.sleep(waitTime)
-        #GPIO.output(pin, GPIO.HIGH)
+        GPIO.output(pin, GPIO.HIGH)
         print("GPIO " + str(pin) + " has been set to HIGH")
 
     def makeDrink(drink):
