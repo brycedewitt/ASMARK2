@@ -91,8 +91,7 @@ def pour(request, drink_id):
     def makeDrink(drink):
         print("enter make drink function")
         # We'll start by making sure the GPIO is setup
-        GPIO.setwarnings(False)
-        GPIO.setmode(GPIO.BCM)
+
 
         # Record the drink being poured
         o = Order(drink=drink, user=None)
@@ -134,6 +133,7 @@ def pour(request, drink_id):
         # Here's where we're going to actually call the functions to start the process
     GPIO.setwarnings(False)
     GPIO.cleanup()
+    GPIO.setmode(GPIO.BCM)
     check_drink(request, drink_id)
     return HttpResponseRedirect('/web_interface')
 
