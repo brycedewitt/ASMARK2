@@ -43,6 +43,7 @@ class MixView(generic.ListView):
 def pour(request, drink_id):
     print("pour triggered")
     def check_capacities(drink_id):
+        print("checking capacities")
         drinkObject = Drink.objects.get(pk=drink_id)
         # We have a valid drink_id now, let's check if we can make it
         # Leaving this super explicit/long for debugging
@@ -65,6 +66,7 @@ def pour(request, drink_id):
         return True
 
     def check_drink(request, drink_id):
+        print("checking drink")
         # First, let's check that the drink exists, throwing the error page if not
         try:
             drinkObject = Drink.objects.get(pk=drink_id)
@@ -78,6 +80,7 @@ def pour(request, drink_id):
         return HttpResponseRedirect('test')
 
     def pour(pin, waitTime):
+        print("enter pour function")
         GPIO.output(pin, GPIO.LOW)
         print("GPIO " + str(pin) + " has been set to LOW")
         time.sleep(waitTime)
@@ -85,6 +88,7 @@ def pour(request, drink_id):
         print("GPIO " + str(pin) + " has been set to HIGH")
 
     def makeDrink(drink):
+        print("enter make drink function")
         # We'll start by making sure the GPIO is setup
         GPIO.setmode(GPIO.BCM)
 
