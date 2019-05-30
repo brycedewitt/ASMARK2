@@ -127,7 +127,6 @@ def pour(request, drink_id):
         for thread in pumpThreads:
             thread.join()
 
-        GPIO.cleanup()
 
 
 
