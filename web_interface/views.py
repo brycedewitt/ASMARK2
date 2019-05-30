@@ -113,7 +113,7 @@ def pour(request, drink_id):
             # run the pumps as threads
             print(p.beverage.gpio_pin)
             GPIO.setup(p.beverage.gpio_pin, GPIO.OUT, initial=GPIO.HIGH)
-            waitTime = p.volume * p.beverage.flowrate
+            waitTime = p.volume / p.beverage.flowrate
             if (waitTime > maxTime):
                 maxTime = waitTime
             pump_t = threading.Thread(target=pour, args=(p.beverage.gpio_pin, waitTime))
