@@ -103,6 +103,7 @@ def pour(request, drink_id):
         # Parse the drink ingredients and spawn threads for pumps
         maxTime = 0
         pumpThreads = []
+        print(drink.pour_set.all())
         for p in drink.pour_set.all():
             # Log beverage being dispensed
             p.beverage.remaining = p.beverage.remaining - p.volume
