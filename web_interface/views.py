@@ -132,6 +132,8 @@ def pour(request, drink_id):
 
 
         # Here's where we're going to actually call the functions to start the process
+    GPIO.setwarnings(False)
+    GPIO.cleanup()
     check_drink(request, drink_id)
     return HttpResponseRedirect('/web_interface')
 
