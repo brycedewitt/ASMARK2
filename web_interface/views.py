@@ -120,6 +120,7 @@ def pour(request, drink_id):
             pumpThreads.append(pump_t)
 
         # start the pump threads
+        print(pumpThreads)
         for thread in pumpThreads:
             thread.start()
 
