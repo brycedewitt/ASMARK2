@@ -41,6 +41,7 @@ class MixView(generic.ListView):
         return x.filter(drink_type__name__exact="Mix")
 
 def pour(request, drink_id):
+    print("pour triggered")
     def check_capacities(drink_id):
         drinkObject = Drink.objects.get(pk=drink_id)
         # We have a valid drink_id now, let's check if we can make it
