@@ -124,11 +124,8 @@ def pour(request, drink_id):
             thread.join()
 
 
-
-
         # Here's where we're going to actually call the functions to start the process
     check_drink(request, drink_id)
-    GPIO.setmode(GPIO.BCM)
     GPIO.cleanup()
     return HttpResponseRedirect('/web_interface')
 
