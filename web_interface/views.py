@@ -121,6 +121,7 @@ def pour(request, drink_id):
 
         # start the pump threads
         for thread in pumpThreads:
+            time.sleep(1)
             thread.start()
 
         # wait for threads to finish
