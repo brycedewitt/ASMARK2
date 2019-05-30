@@ -74,7 +74,6 @@ def pour(request, drink_id):
             return render(request, 'web_interface/detail.html', {'drink': False})
         if check_capacities(drink_id):
             GPIO.setwarnings(False)
-            GPIO.cleanup()
             GPIO.setmode(GPIO.BCM)
             makeDrink(drinkObject)
             return HttpResponseRedirect('test')
