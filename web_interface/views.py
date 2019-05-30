@@ -74,6 +74,7 @@ def pour(request, drink_id):
             return render(request, 'web_interface/detail.html', {'drink': False})
         if check_capacities(drink_id):
             makeDrink(drinkObject)
+            GPIO.cleanup()
             return HttpResponseRedirect('test')
         else:
             return HttpResponseRedirect('test')
@@ -123,10 +124,12 @@ def pour(request, drink_id):
         for thread in pumpThreads:
             thread.join()
 
+        GPIO.cleanup()
+
+
 
         # Here's where we're going to actually call the functions to start the process
     check_drink(request, drink_id)
-    GPIO.cleanup()
     return HttpResponseRedirect('/web_interface')
 
 def detail(request, drink_id):
