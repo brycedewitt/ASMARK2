@@ -122,12 +122,10 @@ def pour(request, drink_id):
         # start the pump threads
         print(pumpThreads)
         for thread in pumpThreads:
-            time.sleep(3)
             thread.start()
-
-        # wait for threads to finish
-        for thread in pumpThreads:
             thread.join()
+
+
 
 
 
