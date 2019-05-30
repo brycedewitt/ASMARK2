@@ -32,8 +32,9 @@ class Drink(models.Model):
     def pourTime(self):
         maxTime = 0
         for p in self.pour_set.all():
+            prevTime = maxTime
             waitTime = p.volume * p.beverage.flowrate
-            maxTime = maxTime + waitTime + 3
+            maxTime = prevTime + waitTime + 3
         return maxTime
 
     def availableList():
