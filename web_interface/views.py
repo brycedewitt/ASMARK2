@@ -91,7 +91,6 @@ def pour(request, drink_id):
     def makeDrink(drink):
         print("enter make drink function")
         # We'll start by making sure the GPIO is setup
-        GPIO.cleanup()
         GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BCM)
 
@@ -128,6 +127,7 @@ def pour(request, drink_id):
         for thread in pumpThreads:
             thread.join()
 
+        GPIO.cleanup()
 
 
 
