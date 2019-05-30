@@ -91,6 +91,7 @@ def pour(request, drink_id):
     def makeDrink(drink):
         print("enter make drink function")
         # We'll start by making sure the GPIO is setup
+        GPIO.cleanup()
         GPIO.setmode(GPIO.BCM)
 
         # Record the drink being poured
