@@ -84,6 +84,9 @@ class Beverage(models.Model):
     def shot_cost(self):
         return float('%.2f'%(self.cost_per_unit * 35))
 
+    def pourTime(self):
+        return 35 / self.flowrate
+
     def __str__(self):
         return self.name
 
