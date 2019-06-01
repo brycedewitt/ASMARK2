@@ -33,7 +33,7 @@
 <div id="card-colums" class="card-columns">
     {% for drink in available_drinks %}
     <div class="card">
-        <img class="card-img-top" src={% drink.imageURL %}>
+        <img class="card-img-top" src='{% drink.imageURL %}'>
         <div class="card-body">
             <h5 class="cart-title">{{ drink.name }} -- ${{ drink.cost }}</h5>
             <p class="card-text"><small class="text-muted">Created by {{ drink.user.name }}</small></p>
