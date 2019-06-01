@@ -21,8 +21,10 @@ class User(models.Model):
         ordering = ["total_drinks"]
         verbose_name_plural = 'Users'
 
+# TODO: Instead of inputing a photo for the drink, can create a function to just display the first image result on a google search for the name
 class Drink(models.Model):
     name = models.CharField(max_length=200)
+    photoURL = models.CharField(max_length=400, default="https://cdn4.iconfinder.com/data/icons/logos-3/600/React.js_logo-512.png", null=False)
     description = models.CharField(max_length=400)
     total_pours = models.IntegerField(default=0)
     cost = models.DecimalField(decimal_places=2, max_digits=10, default=1.99)
