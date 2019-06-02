@@ -52,10 +52,10 @@ def pourShot(request, beverage_id):
     # same function as the drink's pour function, but duplicating here for easier logging
     def pourShot(pin, waitTime):
         print("enter pour function")
-        GPIO.output(pin, GPIO.LOW)
+        #GPIO.output(pin, GPIO.LOW)
         print("GPIO " + str(pin) + " has been set to LOW")
         time.sleep(waitTime)
-        GPIO.output(pin, GPIO.HIGH)
+        #GPIO.output(pin, GPIO.HIGH)
         print("GPIO " + str(pin) + " has been set to HIGH")
 
     # Still going to use threading for a single thread here to keep things uniform
