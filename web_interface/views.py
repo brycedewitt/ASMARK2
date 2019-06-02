@@ -13,6 +13,7 @@ import traceback
 
 from .models import Beverage,Drink,Pour,User,Order
 
+
 class IndexView(generic.ListView):
     template_name = 'web_interface/index.html'
     context_object_name = 'available_drinks'
@@ -21,6 +22,7 @@ class IndexView(generic.ListView):
         """Return the last five published questions."""
         return Drink.availableList()
         #return Drink.objects.order_by('-total_pours')
+
 
 class ShotsView(generic.ListView):
     template_name = 'web_interface/shots.html'
@@ -197,3 +199,5 @@ def detail(request, drink_id):
     except Drink.DoesNotExist:
         return render(request, 'web_interface/detail.html', {'drink': False})
     return render(request, 'web_interface/detail.html', {'drink': drink_id})
+
+
