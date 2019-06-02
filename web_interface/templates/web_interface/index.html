@@ -48,7 +48,7 @@
             <form method="post">
                 {% csrf_token %}
                 <input type="text" id="swipecode_{{ drink.id }}" name="swipecode">
-            <button type="submit" class="btn btn-primary btn-lg btn-block" onclick="location.href='{% url 'web_interface:pour' drink.id %}?swipecode={{ swipecode_{{ drink.id }} }}'; move({{drink.id}}, {{drink.pourTime}})" type="button">Order This</button>
+            <button type="submit" class="btn btn-primary btn-lg btn-block" onclick="location.href='{% url 'web_interface:pour' drink.id %}'; move({{drink.id}}, {{drink.pourTime}})" type="button">Order This</button>
             <br>
             </form>
             <div class="progress">
