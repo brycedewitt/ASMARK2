@@ -45,7 +45,7 @@
                 {% endfor %}
             </ul>
             <p class="card-text"><small class="text-muted">Ordered {{ drink.total_pours }} times</small></p>
-            <form method="post">
+            <form method="get">
                 {% csrf_token %}
                 <input type="text" id="swipecode_{{ drink.id }}" name="swipecode">
             <button type="submit" class="btn btn-primary btn-lg btn-block" onclick="location.href='{% url 'web_interface:pour' drink.id %}'; move({{drink.id}}, {{drink.pourTime}})" type="button">Order This</button>
