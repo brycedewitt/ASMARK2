@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-pins=( 17 27 22 23 24 25 20 21 )
+pins=( 17, 27, 22, 23, 24, 25, 20, 21)
 
 ## loop through each pump pin
 for i in "${pins[@]}"
