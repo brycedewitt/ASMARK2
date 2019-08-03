@@ -13,6 +13,7 @@ import traceback
 
 from .models import Beverage,Drink,Pour,User,Order
 
+
 class IndexView(generic.ListView):
     template_name = 'web_interface/index.html'
     context_object_name = 'available_drinks'
@@ -21,6 +22,7 @@ class IndexView(generic.ListView):
         """Return the last five published questions."""
         return Drink.availableList()
         #return Drink.objects.order_by('-total_pours')
+
 
 class ShotsView(generic.ListView):
     template_name = 'web_interface/shots.html'
@@ -50,10 +52,10 @@ def pourShot(request, beverage_id):
     # same function as the drink's pour function, but duplicating here for easier logging
     def pourShot(pin, waitTime):
         print("enter pour function")
-        GPIO.output(pin, GPIO.LOW)
+        #GPIO.output(pin, GPIO.LOW)
         print("GPIO " + str(pin) + " has been set to LOW")
         time.sleep(waitTime)
-        GPIO.output(pin, GPIO.HIGH)
+        #GPIO.output(pin, GPIO.HIGH)
         print("GPIO " + str(pin) + " has been set to HIGH")
 
     # Still going to use threading for a single thread here to keep things uniform
@@ -197,3 +199,5 @@ def detail(request, drink_id):
     except Drink.DoesNotExist:
         return render(request, 'web_interface/detail.html', {'drink': False})
     return render(request, 'web_interface/detail.html', {'drink': drink_id})
+
+

@@ -7,7 +7,7 @@
 
 <body>
 
-{% if available_beverages %}
+
 <ul class="nav nav-tabs" id="navitemoverride">
   <li class="nav-item">
     <a class="nav-link" href='{% url 'web_interface:index' %}'>Drinks</a>
@@ -19,11 +19,11 @@
     <a class="nav-link active" href='{% url 'web_interface:shots' %}'>Shots</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href='{% url 'web_interface:mix' %}'>Mix</a>
+    <a class="nav-link disabled" href="#"><s>Mix</s></a>
   </li>
 </ul>
 
-
+{% if available_beverages %}
 <h2>Choose a Shot:</h2>
 <div class="card-columns">
     {% for bv in available_beverages %}
@@ -45,7 +45,9 @@
 </div>
 
 {% else %}
-    <h1>No drinks are available.</h1>
+    <h1>No shots are available.</h1>
+    <h3><i>All bottles are either empty or have not been logged in.</i></h3>
+    <h3>Try drinking less</h3>
 {% endif %}
 
 

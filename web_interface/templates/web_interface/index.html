@@ -24,7 +24,7 @@
     <a class="nav-link" href='{% url 'web_interface:shots' %}'>Shots</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link disabled" href="#">Mix</a>
+    <a class="nav-link disabled" href="#"><s>Mix</s></a>
   </li>
 </ul>
 
@@ -33,7 +33,7 @@
 <div id="card-colums" class="card-columns">
     {% for drink in available_drinks %}
     <div class="card">
-        <img class="card-img-top" src='https://cdn4.iconfinder.com/data/icons/logos-3/600/React.js_logo-512.png'>
+        <img class="card-img-top" src="{{ drink.photoURL }}">
         <div class="card-body">
             <h5 class="cart-title">{{ drink.name }} -- ${{ drink.cost }}</h5>
             <p class="card-text"><small class="text-muted">Created by {{ drink.user.name }}</small></p>
@@ -45,8 +45,12 @@
                 {% endfor %}
             </ul>
             <p class="card-text"><small class="text-muted">Ordered {{ drink.total_pours }} times</small></p>
-            <button class="btn btn-primary btn-lg btn-block" onclick="location.href='{% url 'web_interface:pour' drink.id %}'; move({{drink.id}}, {{drink.pourTime}})" type="button">Order This</button>
+            <form method="get">
+                {% csrf_token %}
+                <input type="text" id="swipecode_{{ drink.id }}" name="swipecode">
+            <button type="submit" class="btn btn-primary btn-lg btn-block" onclick="location.href='{% url 'web_interface:pour' drink.id %}'; move({{drink.id}}, {{drink.pourTime}})" type="button">Order This</button>
             <br>
+            </form>
             <div class="progress">
                 <div id={{ drink.id }} class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
             </div>
@@ -58,6 +62,9 @@
 
 {% else %}
     <h1>No drinks are available.</h1>
+    <h3><i>All bottles are either empty or have not been logged in.</i></h3>
+    <h3>Try drinking less</h3>
+
 {% endif %}
 
 
