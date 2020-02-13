@@ -1,5 +1,5 @@
-# ASMARK2
-Web interface for Smart-Bartender's python-based command program, this uses the header pins on the Raspberry Pi to control 8 hardware pumps which can mix fluids at pre-determined rates and ratios.  The Django web interface provides a way to select and trigger "pours", as well as a separate administrative interface to enter new beverages, drinks, and pump configurations.  
+# WebPour
+Web interface for a Smart Bartender's python-based command program [loosely based on this program from HackerShackOfficial](https://github.com/HackerShackOfficial/Smart-Bartender), this uses the header pins on the Raspberry Pi to control 8 hardware pumps which can mix fluids at pre-determined rates and ratios.  The Django web interface provides a way to select and trigger "pours", as well as a separate administrative interface to enter new beverages, drinks, and pump configurations.  
 
 Implemented in Django, using MariaDB for menu storage, and running on Raspberry Pi.  
 
