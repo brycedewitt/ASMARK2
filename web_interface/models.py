@@ -23,6 +23,7 @@ class User(models.Model):
 
 class Drink(models.Model):
     name = models.CharField(max_length=200)
+    picture = models.CharField(max_length=200, default='react.jpg')
     description = models.CharField(max_length=400)
     total_pours = models.IntegerField(default=0)
     cost = models.DecimalField(decimal_places=2, max_digits=10, default=1.99)
@@ -81,6 +82,9 @@ class Beverage(models.Model):
 
     def shot_cost(self):
         return float('%.2f'%(self.cost_per_unit * 35))
+
+    def pourTime(self):
+        return self.flowrate * 35
 
     def __str__(self):
         return self.name

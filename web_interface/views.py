@@ -31,6 +31,8 @@ class ShotsView(generic.ListView):
         x = Beverage.objects.filter(remaining__gt=35).filter(loaded=True)
         return x.filter(drink_type__name__exact="Liquor")
 
+
+
 class MixView(generic.ListView):
     template_name = 'web_interface/mix.html'
     context_object_name = 'available_beverages'
@@ -132,3 +134,27 @@ def detail(request, drink_id):
     except Drink.DoesNotExist:
         return render(request, 'web_interface/detail.html', {'drink': False})
     return render(request, 'web_interface/detail.html', {'drink': drink_id})
+
+def pourShot(request, beverage_id):
+    print('pour shot called')
+    try:
+        beverageObject = Beverage.objects.get(pk=beverage_id)
+    except Beverage.DoesNotExist:
+        return render(request, 'web_interface/detail.html', {'drink': False})
+    if beverageObject.remaining > 35:
+        # first, we'll log the change in quantity remaining
+        beverageObject.remaining = beverageObject.remaining - 35
+        beverageObject.save()
+
+        # Setup and run the pins
+        GPIO.setup(beverageObject.gpio_pin, GPIO.OUT, initial=GPIO.HIGH)
+        pin = beverageObject.gpio_pin
+        #GPIO.output(pin, GPIO.LOW)
+        print("GPIO " + str(pin) + " has been set to LOW")
+        time.sleep(waitTime)
+        #GPIO.output(pin, GPIO.HIGH)
+        print("GPIO " + str(pin) + " has been set to HIGH")
+
+        # cleanup GPIO
+        GPIO.cleanup()
+    return HttpResponseRedirect('/web_interface/shots')

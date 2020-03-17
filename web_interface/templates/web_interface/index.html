@@ -28,13 +28,16 @@
   </li>
 </ul>
 
+<!-- https://cdn4.iconfinder.com/data/icons/logos-3/600/React.js_logo-512.png -->
+
 {% if available_drinks %}
-<h1>Choose a Drink:</h1>
+<h2 style="text-indent: 20px">Choose a drink:</h2>
 <div id="card-colums" class="card-columns">
     {% for drink in available_drinks %}
     <div class="card">
-        <img class="card-img-top" src="https://cdn4.iconfinder.com/data/icons/logos-3/600/React.js_logo-512.png">
+        <img class="card-img-top" src="{% static drink.picture %}">
         <div class="card-body">
+          <h4>{{drink.picture}}</h4>
             <h5 class="cart-title">{{ drink.name }} -- ${{ drink.cost }}</h5>
             <p class="card-text"><small class="text-muted">Created by {{ drink.user.name }}</small></p>
             <p class="card-text">{{ drink.description }}</p>
@@ -45,7 +48,7 @@
                 {% endfor %}
             </ul>
             <p class="card-text"><small class="text-muted">Ordered {{ drink.total_pours }} times</small></p>
-            <button class="btn btn-primary btn-lg btn-block" onclick="location.href='{% url 'web_interface:pour' drink.id %}'; move({{drink.id}}, {{drink.pourTime}})" type="button">Order This</button>
+            <button id="pourButton" class="btn btn-primary btn-lg btn-block" onclick="location.href='{% url 'web_interface:pour' drink.id %}'; move({{drink.id}}, {{drink.pourTime}})" type="button">Order This</button>
             <br>
             <div class="progress">
                 <div id={{ drink.id }} class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>

@@ -2,7 +2,10 @@
 <head>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 {% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'web_interface/loading-bar.css' %}"/>
 <link rel="stylesheet" type="text/css" href="{% static 'web_interface/style.css' %}">
+<script src="{% static 'web_interface/app.js' %}"></script>
+<script type="text/javascript" src="{% static 'web_interface/loading-bar.js' %}"></script>
 </head>
 
 <body>
@@ -24,7 +27,7 @@
 </ul>
 
 
-<h2>Choose a Shot:</h2>
+<h2 style="text-indent: 20px">Choose a Shot:</h2>
 <div class="card-columns">
     {% for bv in available_beverages %}
 
@@ -33,10 +36,10 @@
         <div class="card-body">
             <h5 class="cart-title">{{ bv.name }}</h5>
             <p>${{bv.shot_cost}} per shot</p>
-            <button class="btn btn-primary btn-lg btn-block" type="button">Order This</button>
+            <button class="btn btn-primary btn-lg btn-block" onclick="location.href='{% url 'web_interface:pour' bv.id %}'; move({{bv.id}}, {{bv.pourTime}})" type="button">Order This</button>
             <br>
             <div class="progress">
-                <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+                <div id={{ drink.id }} class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
             </div>
         </div>
     </div>
